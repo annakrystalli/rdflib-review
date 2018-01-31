@@ -1,0 +1,648 @@
+---
+output:
+    html_notebook:
+        toc: true
+        toc_float: true
+editor_options:
+  chunk_output_type: inline
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+
+library(magrittr)
+```
+
+# `rdflib` - package review
+
+## **Reviewer:** [\@annakrystalli](https://github.com/annakrystalli)
+
+### Review Submitted: 2018-01-30
+
+**`r cat(sprintf("**Last updated:** %s", Sys.Date()))`**
+
+***
+
+<br>
+
+This report contains documents the review of **rOpenSci** submitted package:
+
+### **`rdflib`: ropensci/onboarding**  issue [\#169](https://github.com/ropensci/onboarding/issues/169)).
+
+<br>
+
+## Package info
+
+**Description:**
+
+The Resource Description Framework, or 'RDF' is a widely used
+             data representation model that forms the cornerstone of the 
+             Semantic Web. 'RDF' represents data as a graph rather than 
+             the familiar data table or rectangle of relational databases.
+             The 'rdflib' package provides a friendly and concise user interface
+             for performing common tasks on 'RDF' data, such as reading, writing
+             and converting between the various serializations of 'RDF' data,
+             including 'rdfxml', 'turtle', 'nquads', 'ntriples', 'trig', and 'json-ld';
+             creating new 'RDF' graphs, and performing graph queries using 'SPARQL'.
+             This package wraps the low level 'redland' R package which
+             provides direct bindings to the 'redland' C library.  Additionally,
+             the package supports the newer and more developer friendly
+             'JSON-LD' format through the 'jsonld' package. The package
+             interface takes inspiration from the Python 'rdflib' library.
+
+**Author:** `r person("Carl", "Boettiger", 
+                  email = "cboettig@gmail.com", 
+                  role = c("aut", "cre", "cph"),
+                  comment=c(ORCID = "0000-0002-1642-628X"))`
+
+**repo url:** <https://github.com/cboettig/rdflib>
+
+**website url:** <https://cboettig.github.io/rdflib/>
+
+## Review info
+
+
+#### See [reviewer guidelines](https://github.com/ropensci/onboarding/blob/master/reviewing_guide.md) for further information on the rOpenSci review process.
+
+**key review checks:**
+
+- Does the code comply with **general principles in the [Mozilla reviewing guide](https://mozillascience.github.io/codeReview/review.html)**?
+- Does the package **comply with the [ROpenSci packaging guide](https://github.com/ropensci/onboarding/blob/master/packaging_guide.md)**?
+- Are there **improvements** that could be made to the **code style?**
+- Is there **code duplication** in the package that should be reduced?
+- Are there **user interface improvements** that could be made?
+- Are there **performance improvements** that could be made?
+- Is the **documentation** (installation instructions/vignettes/examples/demos) **clear and sufficient**?
+
+Please be respectful and kind to the authors in your reviews. The rOpenSci [code of conduct](policies.md#code-of-conduct) is mandatory for everyone involved in our review process.
+
+***
+
+### session info
+
+
+```{r sessionInfo}
+sessionInfo()
+```
+
+
+```{r pkg_dir, echo = F}
+pkg_dir <- "/Users/Anna/Documents/workflows/rOpenSci/reviews/rdflib-review/../rdflib"
+```
+
+## Test installation
+
+### test install of `rdflib` from GitHub with:
+
+```{r test-github}
+devtools::install_github("cboettig/rdflib", force = T, dependencies = T)
+```
+```{r github-rm}
+remove.packages("rdflib")
+```
+
+#### **comments:**
+
+<!-- record comments on github install here -->
+
+***
+
+### test local `rdflib` install:
+
+```{r test-local}
+pkg_dir <- "/Users/Anna/Documents/workflows/rOpenSci/reviews/rdflib-review/../rdflib"
+devtools::install(pkg_dir, dependencies = T, build_vignettes = T)
+```
+
+```{r}
+pkg_dir <- "/Users/Anna/Documents/workflows/rOpenSci/reviews/rdflib-review/../rdflib"
+devtools::install(pkg_dir, dependencies = T)
+devtools::install(pkg_dir, dependencies = T, build_vignettes = T)
+```
+
+
+
+
+#### **comments:**
+
+<!-- record comments on local install here -->
+
+when I first ran `devtools::install(pkg_dir, dependencies = T, build_vignettes = T)`, the building of the vignettes threw an error because suggests package `‘jqr’` had not been installed yet?
+
+
+```
+* checking for file ‘/Users/Anna/Documents/workflows/rOpenSci/reviews/rdflib/DESCRIPTION’ ... OK
+* preparing ‘rdflib’:
+* checking DESCRIPTION meta-information ... OK
+* installing the package to build vignettes
+* creating vignettes ... ERROR
+Quitting from lines 21-38 (rdflib.Rmd) 
+Error: processing vignette 'rdflib.Rmd' failed with diagnostics:
+there is no package called 'jqr'
+Execution halted
+
+```
+
+***
+
+## Check package integrity
+
+### run checks on `rdflib` source:
+
+```{r check-checks}
+devtools::check(pkg_dir)
+```
+#### **comments:**
+
+<!-- record comments on goodpractice here -->
+
+***
+
+### run tests on `rdflib` source:
+
+```{r check-tests}
+devtools::test(pkg_dir)
+```
+#### **comments:**
+
+<!-- record comments on goodpractice here -->
+
+***
+
+
+### check `rdflib` for goodpractice:
+
+```{r test-goodpractice}
+goodpractice::gp(pkg_dir)
+```
+#### **comments:**
+
+<!-- record comments on goodpractice here -->
+
+***
+
+## Check package metadata files
+
+### inspect
+
+- #### [README](https://github.com/cboettig/rdflib)
+- #### [DESCRIPTION](https://github.com/cboettig/rdflib/blob/master/DESCRIPTION)
+- #### [NAMESPACE](https://github.com/cboettig/rdflib/blob/master/NAMESPACE)
+
+### spell check
+
+```{r spell-check}
+devtools::spell_check(pkg_dir)
+```
+
+#### **comments:**
+
+<!-- record comments on metadata files here -->
+
+***
+
+## Check documentation
+
+online documentation: **<https://cboettig.github.io/rdflib/>**
+
+* Is the documentation (installation instructions/vignettes/examples/demos) clear and sufficient?
+
+### test `rdflib` function help files:
+
+```{r test-help}
+help(package = "rdflib")
+```
+
+#### **comments:**
+
+<!-- record comments on help files here -->
+
+***
+
+### test `rdflib` vignettes:
+
+```{r test-vignettes}
+vignette(package = "rdflib")
+```
+
+#### **comments:**
+
+<!-- record comments on vignettes here -->
+
+## Online documentation:
+
+My main suggestion is to try to define some terms and improve the concept map for the tools by adding some detail and broader context to the documentation. The following suggestions could also be address with links to further details if you think they are too superfluous for explicit documentation with the package.
+
+
+- a brief intro to the semantic could be useful (eg something like):
+
+  > The semantic web aims to link data in a machine readable way through the web, making data more alignable and interoperable, much easier to search, enriching and compute on. 
+  
+
+- what a graph format for data is (eg triples etc).
+
+- the structure of an `rdf` S3 object
+(ie you introduced some aspects of the data format here: `(user does not have to manage world, model and storage objects by default just to perform standard operations and conversions)`  which we are told we can ignore (which is great) but actually creates more questions... what is this mysterious "world" object that forms an opaque slot of an rdf S3 object?) Would be nice to explain the structure of the S3 rdf briefly. Is there usefull metadata that can be extracted from the structure? (see comment later)
+
+- `rdf` file formats. 
+I think its would especially aid in appreciating the `rdf_serialise` function to **expand briefly** (and potentially signpost to a resource like [this](http://blog.swirrl.com/articles/rdf-serialisation-formats/)) on the **various serialization formats**, perhaps even why one would use one over another, and particularly, why serialization involves writing a file out. I feel these are important concepts to help appreciate use cases of the function. Indeed the **file out** aspect of the function could do with being flagged more prominently in function man page where just by looking at the (somewhat jargony if you don't know what serialization is) description and running the example, you've ended up writing a file without realising.
+
+Similarly, parsing can then be seen/described as reading in an `rdf` from their specific formats.
+
+Spelling a few things out in plain english could really help folks follow what's going better and understand what file types are inputs or outputs of different functions.
+
+#### how do I find info on URIs? 
+
+In general what is missing for me is some signposting/guidance on how I can find information on the semantics dictating what information I can extract from an `rdf` object. eg. with a `df` or `list` you could use `str` to get an idea of how you could start indexing these objects. If confronted with a local `rdf` file, how would one go about figuring out even what they can query? I appreciate this is really one of the difficulties of working with `rdf` and semantic data in general but I feel some brief guidance or demo on how one would approach this would go a long way.
+
+### examples in general
+
+For clarity to the reader who may not have looked at function documentation yet, I recommend using the full argument names when supplying arguments to functions (if not always atleast the first time an argument is introduced) in vignettes.
+
+### SPARQL queries to JSON data section
+
+At the end of the intro to the section, you write:
+
+> Here is a query that for all papers where I am an author, returns a table of given name, family name and year of publication:
+
+Am I right in thinking though that you are co-author on all papers in the rdf but the query is in fact filtering the names of your co-authors? (through `FILTER ( ?coi_family != "Boettiger" )`) 
+
+### Turning RDF-XML into more friendly JSON
+
+It would be nice if possible to see sample of print outs of the covenrsion of the different files or at least of the effect of compaction. 
+
+### `rdf_add` man page
+
+Would be nice to see a demo of using one or more of the additonal arguments.
+
+
+### Motivating example
+
+I think an additonal, more detailed motivating example might illustrate more direct use case in a researchers workflow. In particular it would be good to highlight the great potential of triplestore APIs (and celebrate the efforts of many cool eg governmental linked data initiatives). So an example that incorporates a query to a triplestore and then enrichment of a researchers data could be a cool example. This could be a longer term project opr even just an rOpenSci blogpost but see comment re: `rdf_query` function below.
+
+
+***
+
+## Test functionality:
+
+- Are there **user interface improvements** that could be made?
+- Are there **performance improvements** that could be made?
+
+```{r free-style}
+library("rdflib")
+library(SPARQL)
+library(jsonlite)
+```
+
+```{r parse-functions}
+exports <-ls("package:rdflib")
+exports
+```
+
+<!-- experiment with package functions -->
+
+### `rdf_serialize`
+
+```{r exp-chunk}
+doc <- system.file("extdata", "dc.rdf", package="redland")
+
+doc %>%
+  rdf_parse() %>%
+  rdf_serialize(doc = "test.nquads", format = "nquads")
+
+doc %>%
+  rdf_parse() %>%
+  rdf_serialize(doc = "test.rdfxml", format = "rdfxml")
+
+
+doc %>%
+  rdf_parse() %>%
+  rdf_serialize(doc = "test.ntriples", format = "ntriples")
+
+```
+
+
+```{r}
+readr::read_file("test.nquads")
+```
+```{r}
+readr::read_file("test.ntriples")
+```
+```{r}
+readr::read_file("test.rdfxml")
+```
+
+
+##### serialisation errors: **`turtle`** & **`trig`**
+
+```{r}
+library(magrittr)
+library(rdflib)
+doc <- system.file("extdata", "dc.rdf", package="redland")
+doc %>%
+  rdf_parse() %>%
+  rdf_serialize(doc = "test.turtle", format = "turtle")
+```
+
+```{r}
+doc <- system.file("extdata", "dc.rdf", package="redland")
+doc %>%
+  rdf_parse() %>%
+  rdf_serialize(doc = "test.trig", format = "trig")
+```
+
+### `rdf_serialize`
+
+```{r}
+doc %>%
+  rdf_parse(type = "jsold")
+```
+
+
+
+```{r}
+doc %>%
+  rdf_parse(type = "jsonld") %>% class
+```
+
+```{r}
+
+```
+
+
+
+#### https://cboettig.github.io/rdflib/articles/rdflib.html
+
+```{r}
+ex <- system.file("extdata/vita.json", package="rdflib")
+vita <- rdf_parse(ex, "jsonld")
+
+sparql <-
+ 'PREFIX schema: <http://schema.org/>
+
+  SELECT ?coi_given ?coi_family ?year
+
+  WHERE { 
+    ?paper a schema:ScholarlyArticle . 
+    ?paper schema:author ?authors .
+    ?paper schema:dateCreated ?year . 
+    ?authors schema:familyName ?coi_family .
+    OPTIONAL { ?authors schema:givenName ?coi_given . }
+
+    FILTER ( ?coi_family != "Boettiger" )
+}
+'
+
+vita %>% rdf_query(sparql)
+```
+
+```{r}
+sparql <-
+ 'PREFIX schema: <http://schema.org/>
+
+  SELECT ?coi_given ?coi_family ?year
+
+  WHERE { 
+    ?paper a schema:ScholarlyArticle . 
+    ?paper schema:author ?authors .
+    ?paper schema:dateCreated ?year . 
+    ?authors schema:familyName ?coi_family .
+    OPTIONAL { ?authors schema:givenName ?coi_given . }
+
+    FILTER ( ?year == "2009-10-19"^^xs:date)
+}
+'
+
+vita %>% rdf_query(sparql)
+```
+
+I'm finding it difficult to query by date. I realise you've opted to do date filtering later but, it could be another quite informative additional example as temporal filtering is probably a widespread usecase. 
+
+
+
+```{r}
+sparql <-
+ 'PREFIX schema: <http://schema.org/>
+
+  SELECT ?coi_given ?coi_family ?year
+
+  WHERE { 
+    ?paper a schema:ScholarlyArticle . 
+    ?paper schema:author ?authors .
+    ?authors schema:familyName ?coi_family .
+    OPTIONAL { ?authors schema:givenName ?coi_given . }
+
+    FILTER ( ?coi_family != "Boettiger" )
+}
+'
+
+vita %>% rdf_query(sparql)
+```
+
+Nice warning message
+
+```{r}
+vita %>% str
+```
+
+
+```{r}
+
+vita %>% class
+```
+
+```{r}
+vita$world@librdf_world
+
+```
+
+
+```{r}
+vita$model@librdf_model
+
+```
+
+
+```{r}
+doc <- system.file("extdata", "dc.rdf", package="redland")
+
+sparql <-
+'PREFIX dc: <http://purl.org/dc/elements/1.1/>
+ SELECT ?author ?c
+ WHERE { ?author dc:creator ?c . }'
+
+rdf <- rdf_parse(doc)
+rdf_query(rdf, sparql)
+```
+
+
+##### `jq`
+
+```{r}
+
+  readr::read_file(ex) %>%
+  jqr::jq(
+     '."@reverse".author[]  | 
+       { year: .dateCreated, 
+         author: .author[] | [.givenName, .familyName]  | join(" ")
+       }') %>%
+  jqr::combine() %>%
+  jsonlite::fromJSON()
+```
+
+
+Select the first 15 triplets.
+
+```{r}
+library(SPARQL)
+endpoint <- "http://linked.bodc.ac.uk/sparql/"
+query <- 'select * where {?s ?p ?o . } limit 15'
+
+out <- SPARQL(endpoint, query)
+```
+
+
+```{r}
+
+query <- 'select * where {?subject ?predicate ?object . } limit 15'
+res <- SPARQL(endpoint, query)
+
+res %>% class
+```
+```{r}
+xml
+```
+
+
+```{r}
+"http://www.w3.org/ns/dcat#Dataset"
+
+query <- 'select ?dataset where {?dataset a <http://www.w3.org/ns/dcat#Dataset> . } limit 15'
+
+query <- 'SELECT DISTINCT ?s
+WHERE {
+  ?s a <http://www.w3.org/ns/dcat#Dataset>
+} limit 15'
+SPARQL(endpoint, query)
+
+```
+
+
+```{r}
+res$results %>% toJSON() %>% class() %>% rdf_parse("json")
+```
+
+```{r}
+SPARQL::commonns
+```
+
+
+```{r}
+ex <- system.file("extdata/vita.json", package="rdflib")
+vita <- rdf_parse(ex, "json")
+
+sparql <-
+ 'PREFIX schema: <http://schema.org/>
+
+  SELECT ?coi_given ?coi_family ?year
+
+  WHERE { 
+    ?paper a schema:ScholarlyArticle . 
+    ?paper schema:author ?authors .
+    ?paper schema:dateCreated ?year . 
+    ?authors schema:familyName ?coi_family .
+    OPTIONAL { ?authors schema:givenName ?coi_given . }
+
+    FILTER ( ?coi_family != "Boettiger" )
+}
+'
+
+vita %>% rdf_query(sparql)
+```
+
+
+
+
+#### **comments:**
+
+<!-- record comments on rdflib experimentation here -->
+
+I know this is more the `redland` package and the whole point is I'd kinda like to know what world is. Despite this reference in the vignette:
+> user does not have to manage world, model and storage objects by default just to perform standard operations and conversions)
+
+I'm not really sure what they are. Would be nice to explain what the structure of the S3 rdf is. Is there usefull metadata that can be extracted from the structure?
+
+- in `rdf_serialize` documentation: I think a brief mention of what serialisation actually is would really help understand this function. I also feel it should be flagged more prominently that the function **writes a file out**.
+
+
+***
+
+## Inspect code:
+
+- Does the package **comply with the [ROpenSci packaging guide](https://github.com/ropensci/onboarding/blob/master/packaging_guide.md)**?
+    * good [function & variable naming?](https://github.com/ropensci/onboarding/blob/master/packaging_guide.md#funvar)
+    * good [dependency management](https://github.com/ropensci/onboarding/blob/master/packaging_guide.md#deps)?
+- Are there **improvements** that could be made to the **code style?**
+- Is there **code duplication** in the package that should be reduced?
+
+```{r inspect-code}
+pkgreviewr::pkgreview_print_source("rdflib")
+```
+
+```{r}
+redland::serializeToFile
+```
+
+
+```{r}
+rdflib:::rdf_mimetypes
+```
+
+```{r}
+rdflib:::rectangularize_query_results
+```
+
+
+Is there a way to return a non regularised query result ie return an `rdf` instead? 
+
+I'm thinking about a usecase when maybe it's better to enrich data by merging `rdf`s? 
+
+Ie, researcher queries a triples store through an API (yeyyy open data!), combines their not fully matching but interoperable `rdf` data with `rdf_add` (ie try to show how triplestore is better than tabular non-linked data for merging) and then queries the merged rdf to extract an enrched analytical tabular dataset? 
+
+
+<br>
+<br>
+
+#### **comments:**
+
+<!-- record comments on rdflib source code here -->
+
+
+## Review test suite:
+
+### test coverage
+
+```{r pkg_coverage}
+covr::package_coverage(pkg_dir)
+
+```
+
+### inspect [tests](https://github.com/cboettig/rdflib/blob/master/tests/testthat)
+
+#### **comments:**
+
+<!-- record comments on testing suite here -->
+
+
+Add tests for being able to serialise to `trig` and `turtles` which at the moment is throwing an error.
+
+Perhaps a test for parsing/serialising each format could be good.
+
+***
